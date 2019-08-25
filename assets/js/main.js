@@ -37,6 +37,7 @@
   });
 
   $(".scrl-down").on("click", function(e) {
+    $('.navbar-toggler-icon').click();
     isScrolling = $(this).attr("href") === "#aboutSection" ? false : true;
     e.preventDefault();
     let speed = 1000;
@@ -59,6 +60,8 @@
             $(x).removeClass("animation-inactive")
           );
           isScrolling = false;
+               
+        
         }
       }
     );
@@ -85,3 +88,14 @@
   //		setHeight: '100%',
   //	});
 })(jQuery);
+var toogleNavAnimation = () => {
+  $("#navbarSupportedContent").hasClass("show")
+    ? $("#navbarSupportedContent").css(
+        "animation",
+        "1s ease 0s normal forwards 1 fadeoutFast"
+      )
+    : $("#navbarSupportedContent").css(
+        "animation",
+        "5s ease 0s normal forwards 1 fadein"
+      );
+};

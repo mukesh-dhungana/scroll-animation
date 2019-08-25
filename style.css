@@ -1002,3 +1002,6 @@ p.edu-summury {
 .navbar-brand img {
   margin-right: 20px;
 }
+.navbar-collapse{
+  transition: 600ms linear;
+}
