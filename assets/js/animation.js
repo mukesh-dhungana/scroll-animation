@@ -134,6 +134,28 @@ function myFunction() {
       //document.getElementsByClassName("video-play")[a].pause();
     }
   }
+
+  //transitional-section-animation
+  transfromTransitionalSection();
+  //....//
+
+  //home-section-scroll-animation
+  transfromHomeSection();
+  //..........//
+}
+
+var isScrolledIntoView = elem => {
+  var docViewTop = $(window).scrollTop();
+  var docViewBottom = docViewTop + $(window).height();
+
+  var elemTop = elem.offsetTop;
+  var elemBottom = elemTop + elem.offsetHeight;
+
+  return elemBottom <= docViewBottom + 200 && elemTop >= docViewTop;
+};
+
+//region-transitional-section-scroll-animation
+var transfromTransitionalSection = () => {
   var transitionalSectionLen = document.getElementsByClassName(
     "transitional-section"
   ).length;
@@ -180,20 +202,25 @@ function myFunction() {
     }
     let transitionLowerHeight = 500,
       transitionUpperHeight = 600;
-    if (window.innerHeight < 700) {
-      transitionLowerHeight = 300;
-      transitionUpperHeight = 500;
-    } else if (window.innerHeight > 700 && window.innerHeight < 900) {
-      transitionLowerHeight = 600;
-      transitionUpperHeight = 700;
-    } else if (window.innerHeight > 900 && window.innerHeight < 1100) {
-      transitionLowerHeight = 700;
-      transitionUpperHeight = 900;
-    } else if (window.innerHeight > 1100 && window.innerHeight < 1300) {
-      transitionLowerHeight = 1050;
-      transitionUpperHeight = 1100;
+    let windowHeight = window.innerHeight;
+    switch (true) {
+      case windowHeight < 700:
+        transitionLowerHeight = 300;
+        transitionUpperHeight = 500;
+        break;
+      case windowHeight > 700 && windowHeight < 900:
+        transitionLowerHeight = 600;
+        transitionUpperHeight = 700;
+        break;
+      case windowHeight > 900 && windowHeight < 1100:
+        transitionLowerHeight = 700;
+        transitionUpperHeight = 900;
+        break;
+      case windowHeight > 1100 && windowHeight < 1300:
+        transitionLowerHeight = 1050;
+        transitionUpperHeight = 1100;
+      default:
     }
-
     if (
       window.innerHeight -
         document
@@ -223,7 +250,31 @@ function myFunction() {
     //   transformTransitionalEl(false, transitionalSection.parentElement);
     // }
   }
+};
 
+var transformTransitionalEl = (transtionSize, transitionalSection) => {
+  var transitionalDiv = transitionalSection.getElementsByClassName(
+    "transitional-content-div"
+  );
+  for (tLen = 0; tLen < transitionalDiv.length; tLen++) {
+    var transitionalContentLen = transitionalDiv[tLen].getElementsByClassName(
+      "transitional-content"
+    ).length;
+    for (i = 0; i < transitionalContentLen; i++) {
+      transitionalDiv[tLen].getElementsByClassName("transitional-content")[
+        i
+      ].style.transform = "translate(0," + transtionSize + "px)";
+      transitionalDiv[tLen].getElementsByClassName("transitional-content")[
+        i
+      ].style.animation = "5s ease 0s normal forwards 1 fadein";
+    }
+  }
+};
+
+//....//
+
+//region-home-section-scroll-animation
+var transfromHomeSection = () => {
   if (
     document.getElementById("homeSection").getBoundingClientRect().bottom <
       500 &&
@@ -331,52 +382,27 @@ function myFunction() {
         "5s ease 0s normal forwards 1 fadein";
     }
   }
-}
-const videoCount = document.getElementsByClassName("video-play").length;
-for (i = 0; i < videoCount; i++) {
-  const video = document.getElementsByClassName("video-play")[i];
-  video.addEventListener("ended", () => {
-    video.currentTime = 0.05;
-    video.play();
-  });
-}
-const videoHome = document.getElementById("video-home");
-videoHome.addEventListener("ended", () => {
-  videoHome.currentTime = 0.05;
-  videoHome.play();
-});
-
-var isScrolledIntoView = elem => {
-  var docViewTop = $(window).scrollTop();
-  var docViewBottom = docViewTop + $(window).height();
-
-  var elemTop = elem.offsetTop;
-  var elemBottom = elemTop + elem.offsetHeight;
-
-  return elemBottom <= docViewBottom + 200 && elemTop >= docViewTop;
 };
+//....//
 
-var transformTransitionalEl = (transtionSize, transitionalSection) => {
-  var transitionalDiv = transitionalSection.getElementsByClassName(
-    "transitional-content-div"
-  );
-  for (tLen = 0; tLen < transitionalDiv.length; tLen++) {
-    var transitionalContentLen = transitionalDiv[tLen].getElementsByClassName(
-      "transitional-content"
-    ).length;
-    for (i = 0; i < transitionalContentLen; i++) {
-      transitionalDiv[tLen].getElementsByClassName("transitional-content")[
-        i
-      ].style.transform = "translate(0," + transtionSize + "px)";
-      transitionalDiv[tLen].getElementsByClassName("transitional-content")[
-        i
-      ].style.animation = "5s ease 0s normal forwards 1 fadein";
-    }
-  }
-};
-
-//home-section-onload-animation
 $(document).ready(() => {
+  //region-video-smooth-transition
+  const videoCount = document.getElementsByClassName("video-play").length;
+  for (i = 0; i < videoCount; i++) {
+    const video = document.getElementsByClassName("video-play")[i];
+    video.addEventListener("ended", () => {
+      video.currentTime = 0.05;
+      video.play();
+    });
+  }
+  const videoHome = document.getElementById("video-home");
+  videoHome.addEventListener("ended", () => {
+    videoHome.currentTime = 0.05;
+    videoHome.play();
+  });
+  //....//
+
+  //home-section-onload-animation
   setTimeout(() => {
     var homeAnimationLen = document.getElementsByClassName("home-animation")
       .length;
@@ -427,6 +453,8 @@ $(document).ready(() => {
       document.getElementsByClassName("home-animation")[i].style.animation =
         "5s ease 0s normal forwards 1 fadein";
     }
-  }, 1000);
+  }, 700);
+  //......//
+
+  transfromTransitionalSection();
 });
-//......//
