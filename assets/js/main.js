@@ -37,7 +37,11 @@
   });
 
   $(".scrl-down").on("click", function(e) {
-    $('.navbar-toggler-icon').click();
+    if (
+      $(".navbar-toggler").is(":visible") &&
+      $(this).attr("href") !== $(".scrl-down.active").attr("href")
+    )
+      $(".navbar-toggler-icon").click();
     isScrolling = $(this).attr("href") === "#aboutSection" ? false : true;
     e.preventDefault();
     let speed = 1000;
@@ -60,8 +64,6 @@
             $(x).removeClass("animation-inactive")
           );
           isScrolling = false;
-               
-        
         }
       }
     );
