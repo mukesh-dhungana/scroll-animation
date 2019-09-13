@@ -275,121 +275,13 @@ var transformTransitionalEl = (transtionSize, transitionalSection) => {
 //....//
 
 //region-home-section-scroll-animation
-// var transfromHomeSection = () => {
-//     if (
-//         document.getElementById("homeSection").getBoundingClientRect().bottom <
-//         500 &&
-//         document.getElementById("homeSection").getBoundingClientRect().bottom > 200
-//     ) {
-//         var homeAnimationLen = document.getElementsByClassName("home-animation")
-//             .length;
-//         for (i = 0; i < homeAnimationLen; i++) {
-//             let translate = "0";
-//             const windowWidth = window.innerWidth;
-//             switch (true) {
-//                 case windowWidth > 767 && windowWidth <= 992:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(45px, -270px)";
-//                     }
 
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(47px, -90px)";
-//                     }
-
-//                     break;
-//                 case windowWidth <= 568:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(45px, -140px)";
-//                     }
-
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(47px, -70px)";
-//                     }
-//                     break;
-//                 default:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(145px,-500px)";
-//                     }
-
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = " translate(150px, -300px)";
-//                     }
-//                     let fade = "fadeout";
-//                     fade = isScrolling ? "fadeoutFast" : "fadeout";
-//                     document.getElementsByClassName("home-animation")[i].style.animation =
-//                         "2s ease 0s normal forwards 1 " + fade;
-//             }
-//         }
-//     } else {
-//         var homeAnimationLen = document.getElementsByClassName("home-animation")
-//             .length;
-//         for (i = 0; i < homeAnimationLen; i++) {
-//             let translate = "0";
-//             const windowWidth = window.innerWidth;
-//             switch (true) {
-//                 case windowWidth > 767 && windowWidth <= 992:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(11vw, -370px)";
-//                     }
-
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(11vw, -190px)";
-//                     }
-//                     break;
-//                 case windowWidth <= 568:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(11vw, -180px)";
-//                     }
-
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(11vw, -100px)";
-//                     }
-//                     break;
-//                 default:
-//                     if (i == 0 || i == 1) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = "translate(11vw,-400px)";
-//                     }
-
-//                     if (i == 2) {
-//                         document.getElementsByClassName("home-animation")[
-//                             i
-//                         ].style.transform = " translate(11vw, -205px)";
-//                     }
-//             }
-
-//             document.getElementsByClassName("home-animation")[i].style.animation =
-//                 "5s ease 0s normal forwards 1 fadein";
-//         }
-//     }
-// };
 var transfromHomeSection = () => {
   var offSetHeight = document.getElementById("homeSection").offsetHeight;
   const windowWidth = window.innerWidth;
   if (
     document.getElementById("homeSection").getBoundingClientRect().bottom <
-    (offSetHeight / 2 + (windowWidth>540?200:100))
+    offSetHeight / 2 + (windowWidth > 540 ? 200 : 100)
   ) {
     var homeAnimationLen = document.getElementsByClassName("home-animation")
       .length;
@@ -405,8 +297,10 @@ var transfromHomeSection = () => {
         document.getElementsByClassName("home-animation")[i].style.transform =
           "translate(11.3vw, " + (-(offSetHeight / 2) - 100) + "px)";
       }
+      let fade = "fadeout";
+      fade = isScrolling ? "fadeoutFast" : "fadeout";
       document.getElementsByClassName("home-animation")[i].style.animation =
-        "5s ease 0s normal forwards 1 fadeout";
+        (isScrolling ? "1s" : "5s") + " ease 0s normal backwards 1 " + fade;
     }
   } else {
     var homeAnimationLen = document.getElementsByClassName("home-animation")
