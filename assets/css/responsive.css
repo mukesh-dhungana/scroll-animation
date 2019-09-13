@@ -47,6 +47,9 @@
   .about-section-second .about-section-second-div{
     height: 125px;
   }
+  .video-container, .video-container video{
+    height:auto!important;
+  }
 }
 
 @media screen and (max-width: 992px) {
